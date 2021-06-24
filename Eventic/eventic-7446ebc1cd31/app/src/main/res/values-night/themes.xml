@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Eventic" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/eventic_blue</item> <!-- purple_200 for dark mode -->
+        <item name="colorPrimaryVariant">@color/eventic_light_blue</item>
+        <item name="colorOnPrimary">#202125</item> <!-- dark for black mode -->
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/eventic_blue</item>
+        <item name="colorSecondaryVariant">@color/eventic_light_blue</item> <!-- teal_200 for dark mode -->
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+</resources>

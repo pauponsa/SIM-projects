@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_songs"
+        android:icon="@android:drawable/ic_media_rew"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_albums"
+        android:title="Discover"/>
+
+    <item
+        android:id="@+id/navigation_artists"
+        android:title="Chats"/>
+
+</menu>
