@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: email@gmail.com
+  name: MyString
+  username: MyString
+  image: MyString
+  language: MyString
+  longitude: MyString
+  latitude: MyString
+  login_token: MyString
+  password_digest: MyString
+  role: customer
+  nif: MyString
+  phone: MyString
+
+two:
+  email: MyString2
+  name: MyString
+  username: MyString
+  image: MyString
+  language: MyString
+  longitude: MyString
+  latitude: MyString
+  login_token: qwertyuiop
+  password_digest: MyString2
+  role: company
+  nif: MyString
+  phone: MyString
