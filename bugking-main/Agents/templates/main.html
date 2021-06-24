@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Bugking</title>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='form.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='bootstrap.min.css')}}">
+	</head>
+	<body>
+	<div id="page">
+		<br /> <br /> <br />
+		<div ALIGN=center id="wrapper">
+			<div id="menu">
+				<div class="title">Bugking <em>- Empresa líder en organizar viajes</em></div>
+					<hr style="color:red; background-color:red; width:100%;" />
+				<ul>
+			</div>
+			<div class="transbox">
+				<form action="/solucio" method="post" name="main">
+					{{ form.ciudadD.label }} {{ form.ciudadD(size=20)}}
+					<br>
+                    {{ form.zonaAloj.label }} {{ form.zonaAloj(size=20)}}
+                    <br>
+  				   	{{ form.FechaIda.label }} {{ form.FechaIda(class='datepicker') }}
+  				   	<br>
+  				   	{{ form.FechaVuelta.label }} {{ form.FechaVuelta(class='datepicker') }}
+					<br>
+					{{ form.PrecioMax.label }} {{ form.PrecioMax(size=20)}}
+					<br>					
+                    <input type="submit" value="Search Packet" class="button btn-primary">
+					<br>
+				</form>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
