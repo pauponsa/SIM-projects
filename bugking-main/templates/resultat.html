@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Bugking</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	</head>
+	<body>
+		<br /> <br /> <br />
+			<div id="menu" ALIGN="center">
+				<div class="title">Bugking <em>- Empresa líder en organizar viajes</em></div>
+					<hr style="color:red; background-color:red; width:100%;" />
+				<ul>
+			</div>
+            <div>
+                <label for="INFO VOL">
+                    &nbsp;&nbsp;1.INFORMACIÓN RESPECTO AL VUELO DE IDA:
+                </label>
+                <br>
+                <label for="INFO AEROPORT ANADA">
+                   <strong>&nbsp;&nbsp;Aeropuerto de salida en la ida: &nbsp;&nbsp;</strong>
+                </label>
+               {{transport}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <label for="INFO AEROPORT ARRIBADA ANADA">
+                <strong>Aeropuerto de llegada en la ida: &nbsp;&nbsp;</strong>
+                </label>
+                {{AeroportArribadaAnada}}
+                <br>
+                <label for="INFO FECHA ANADA">
+                    <strong>&nbsp;&nbsp;Dia de ida: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraSortidaAnada.day}} - {{HoraSortidaAnada.month}} - {{HoraSortidaAnada.year}}
+                <br>
+                <label for="INFO HORA ANADA">
+                    <strong>&nbsp;&nbsp;Hora de salida en la ida: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraSortidaAnada.hour}}:{{HoraSortidaAnada.minute}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="INFO HORA ARRIBADA ANADA">
+                 <strong>Hora de llegada en la ida: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraArribadaAnada.hour}}:{{HoraArribadaAnada.minute}}
+                 <br><br>
+                 <label for="INFO VOL">
+                    &nbsp;&nbsp;2.INFORMACIÓN RESPECTO AL VUELO DE VUELTA:
+                </label>
+                <br>
+                <label for="INFO AEROPORT ANADA">
+                   <strong>&nbsp;&nbsp;Aeropuerto de salida en la vuelta: &nbsp;&nbsp;</strong>
+                </label>
+               {{AeroportSortidaTornada}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <label for="INFO AEROPORT ARRIBADA ANADA">
+                <strong>Aeropuerto de llegada en la vuelta: &nbsp;&nbsp;</strong>
+                </label>
+                {{AeroportArribadaTornada}}
+                <br>
+                <label for="INFO DIA VUELTA">
+                    <strong>&nbsp;&nbsp;Dia de vuelta: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraSortidaTornada.day}} - {{HoraSortidaTornada.month}} - {{HoraSortidaTornada.year}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <br>
+                <label for="INFO HORA VUELTA">
+                    <strong>&nbsp;&nbsp;Hora de salida en la vuelta: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraSortidaTornada.hour}}:{{HoraSortidaTornada.minute}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="INFO HORA ARRIBADA ANADA">
+                 <strong>Hora de llegada en la vuelta: &nbsp;&nbsp;</strong>
+                </label>
+                {{HoraArribadaTornada.hour}}:{{HoraArribadaTornada.minute}}
+                <br>
+                <br>
+                <label for="INFO VOL">
+                    &nbsp;&nbsp;3.PRECIO DEL TRANSPORTE:&nbsp;&nbsp;
+                </label>
+                {{Preu_Transport}} €
+                <br><br>
+                <label for="INFO ALLOTJAMENT">
+                    &nbsp;&nbsp;4.INFORMACIÓN RESPECTO EL ALOJAMIENTO:&nbsp;&nbsp;
+                </label>
+                <br>
+                <label for="INFO ANOM ALLOTJAMENT">
+                   <strong>&nbsp;&nbsp;Nombre del lugar de alojamiento: &nbsp;&nbsp;</strong>
+                </label>
+               {{Nom_Allotjament}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <label for="INFO DE LA DIRECCION">
+                <strong>Dirección del alojamiento: &nbsp;&nbsp;</strong>
+                </label>
+                {{Adresa_allotjament}}
+                <br><br>
+                <label for="INFO PREU TRANSPORT">
+                    &nbsp;&nbsp;5.PRECIO DEL ALOJAMIENTO:&nbsp;&nbsp;
+                </label>
+                {{Preu_Allotjament}} €
+                 <br><br>
+            </div>
+            <label for="INFO ACTIVITATS">
+                &nbsp;&nbsp;6.HORARIO DE ACTIVIDADES:
+            </label>
+            <table>
+                <thead><th>&nbsp;&nbsp;Día</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Mañana</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Tarde</th><th>&nbsp;&nbsp;&nbsp;&nbsp;Noche</th></thead>
+                <tbody>
+                    {% set counter = namespace(value=0)%}
+                    {%for i in range(0, len)%}
+                            <tr>
+                                {% set counter.value = counter.value + 1 %}
+                            <td>
+                                &nbsp;&nbsp;&nbsp;{{ counter.value }}
+                            </td>
+                            <td>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;{{Activitats_mati[i]}} <strong>Tipo:</strong>{{Tipus_activitats_mati[i]}} <strong>Lugar:</strong>{{Lloc_activitats_mati[i]}}
+                            </td>
+  
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  {{Activitats_tarda[i]}} <strong>Tipo:</strong>{{Tipus_activitats_tarda[i]}} <strong>Lugar:</strong>{{Lloc_activitats_tarda[i]}}
+                            </td>
+
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp; {{Activitats_nit[i]}} <strong>Tipo:</strong>{{Tipus_activitats_nit[i]}} <strong>Lugar:</strong>{{Lloc_activitats_nit[i]}}
+                            </td>
+ 
+                          </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br><br>
+            <form action="/main" method="get" name="main">
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Volver a buscar" class="button btn-primary">
+            </form>  
+            <br>
+            <form action="/disfruta" method="get" name="main">
+                &nbsp;&nbsp;&nbsp;&nbsp;<input type="Submit" value="Aceptar paquete" class="button btn-primary">
+            </form>                      
+    </body>
+</html>

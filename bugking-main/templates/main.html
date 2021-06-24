@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Bugking</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	</head>
+	<body>
+		<br /> <br /> <br />
+			<div id="menu" ALIGN="center">
+				<div class="title">Bugking <em>- Empresa líder en organizar viajes</em></div>
+					<hr style="color:red; background-color:red; width:100%;" />
+				<ul>
+			</div>
+			
+			{{ mensaje }}
+			<br>
+				<form action="/solucio" method="post" name="main">
+					<div class="form-row">
+						<div class="form-group col-sm-12">
+							
+							<label for="select_city" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;- Selecciona la ciudad:</strong>
+							</label>
+							{{ form.ciudadD(size=1)}}
+							
+						                                           
+							<label for="select_zona" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;" >
+								<strong>&nbsp;&nbsp;Selecciona la zona:</strong>
+							</label>
+							{{ form.zonaAloj(size=1)}}
+						
+						</div>
+					</div>
+					<br> <br>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="select_fecha_ida" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;- Selecciona la fecha de ida:</strong>
+							</label>
+							{{ form.FechaIda(class='datepicker') }}
+							<label for="select_fecha_vuelta" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;&nbsp;Selecciona la fecha de vuelta:</strong>
+							</label>
+							{{ form.FechaVuelta(class='datepicker') }}
+						</div>
+					</div>
+					<br> <br>	
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cantidad_actividades" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;- Selecciona la cantidad de actividades según el tipo:</strong>
+							</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cantidad_actividades" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;&nbsp;&nbsp;&nbsp;1.Lúdicas:</strong>
+							</label>
+							{{ form.TiposActividadesLudicas(size=1)}}
+							<label for="cantidad_actividades" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;&nbsp;&nbsp;&nbsp;2.Culturales:</strong>
+							</label>
+							{{ form.TiposActividadesCulturales(size=1)}}
+							<label for="cantidad_actividades" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+								<strong>&nbsp;&nbsp;&nbsp;&nbsp;3.Festivas:</strong>
+							</label>
+							{{ form.TiposActividadesFestivas(size=1)}}
+							<br>
+							<label for="cantidad_actividades" style = "font-family:Arial, Helvetica, sans-serif; font-size:12px;font-style:oblique;">
+								<p>&nbsp;&nbsp;&nbsp;&nbsp;**Seleccione diferentes opciones. No se pueden repetir las opciones.</p>
+							</label>
+						</div>
+					</div>
+
+					<br>
+					<div class="form-group">
+						<label for="select_fecha_vuelta" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+							<strong>&nbsp;- Selecciona el precio máximo del paquete:</strong>
+						</label>
+						{{ form.PrecioMax(size=20)}}
+					</div>		
+					<br> <br>
+					<div class="form-group">
+						<label for="select_fecha_vuelta" style = "font-family:Arial, Helvetica, sans-serif; font-size:18px;font-style:italic;">
+							<strong>&nbsp;</strong>
+						</label>	
+                    	<input type="submit" value="Buscar paquete" class="button btn-primary">
+					</div>
+				</form>
+	</body>
+</html>
