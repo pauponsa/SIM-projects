@@ -1,0 +1,85 @@
+<style>
+  body{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+    }
+    .info, .success, .warning, .error, .validation {
+      border: 1px solid;
+      margin: 10px 0px;
+      padding: 15px 10px 15px 50px;
+      background-repeat: no-repeat;
+      background-position: 10px center;
+    }
+    .info {
+      color: #00529B;
+      background-color: #BDE5F8;
+      background-image: url('https://i.imgur.com/ilgqWuX.png');
+    }
+    .success {
+      color: #4F8A10;
+      background-color: #DFF2BF;
+      background-image: url('https://i.imgur.com/Q9BGTuy.png');
+    }
+    .warning {
+      color: #9F6000;
+      background-color: #FEEFB3;
+      background-image: url('https://i.imgur.com/Z8q7ww7.png');
+    }
+    .error{
+      color: #D8000C;
+      background-color: #FFBABA;
+      background-image: url('https://i.imgur.com/GnyDvKN.png');
+    }
+    .validation{
+      color: #D63301;
+      background-color: #FFCCBA;
+      background-image: url('https://i.imgur.com/GnyDvKN.png');
+    }
+</style>
+
+
+<% if !@message1.blank? %>
+ <div class="success"><%=@message1%></div>
+ <%end%>
+ <% if !@message2.blank? %>
+ <div class="error"><%=@message2%></div>
+ <%end%>
+
+
+<center>
+  <table border="0" width="100%" bgcolor="white">
+    <th></th>
+    <tbody>
+      <tr>
+        <td bgcolor = "steelblue"  class="tda">
+           <table style="padding:15px" border="0">
+            <th></th>
+            <tbody >
+              <tr>
+                 <td style="width:18px; padding-right:4px"  class="tda">              
+                  </td>
+                  <td style = "line-height:12pt; height:10px;"  class="tda">
+                    <span class="pagetop">                    
+                    </span>
+                  </td>                
+              </tr>
+           </tbody>   
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h1><img width="30%" src="/Eventic.png" alt="Image not found" /></h1>
+  <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class="actions"><%= f.submit "Update Password" %></div>
+  <% end %>
+</center>
+
