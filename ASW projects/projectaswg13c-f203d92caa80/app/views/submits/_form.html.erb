@@ -1,0 +1,42 @@
+<%= form_with(model: submit) do |form| %>
+  <% if submit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(submit.errors.count, "error") %> prohibited this submit from being saved:</h2>
+
+      <ul>
+        <% submit.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :URL %>
+    <%= form.text_field :URL %>
+  </div>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_field :text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :creator %>
+    <%= form.text_field :creator %>
+  </div>
+
+  <div class="field">
+    <%= form.label :like %>
+    <%= form.number_field :like %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

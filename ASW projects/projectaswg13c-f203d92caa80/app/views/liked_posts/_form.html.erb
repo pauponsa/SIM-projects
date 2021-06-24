@@ -1,0 +1,27 @@
+<%= form_with(model: liked_post) do |form| %>
+  <% if liked_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(liked_post.errors.count, "error") %> prohibited this liked_post from being saved:</h2>
+
+      <ul>
+        <% liked_post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :submit_id %>
+    <%= form.text_field :submit_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

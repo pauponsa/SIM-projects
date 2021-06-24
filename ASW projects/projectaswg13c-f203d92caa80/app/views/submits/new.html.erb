@@ -1,0 +1,64 @@
+<center>
+<table id="hnmain" width="85%" cellspacing="0" cellpadding="0" border="0" bgcolor="#f6f6ef">
+  <tbody>
+    <tr>
+      <td bgcolor = "#ff6600"  class="tda">
+        <table style="padding:2px" width="100%" cellspacing="0" cellpadding="0" border="0">
+          <tbody >
+            <tr>
+             <td style="width:18px; padding-right:4px"  class="tda">
+               <a href="https://www.youtube.com/watch?v=PwbqAJKNdXo">
+                 <img src="https://news.ycombinator.com/y18.gif" style="border:1px white solid;"
+                 width = "18" height = "18" >
+               </a>
+              </td>
+              <td style = "line-height:12pt; height:10px;"  class="tda">
+                <span class="pagetop">
+                  <b class="hnname">Submit</b>
+                </span>
+            </tr>
+            </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="submit-container">
+  <br>
+  <form  action="/submits" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="submit[user_id]" value=<%= session[:user_id].to_i %>>
+    <div style="display:flex; justify-items: between">
+      <label class="submit-label submit-text">title</label>
+      <input class="submit-input" type="text" name="submit[title]"></input>
+    </div>
+    <div style="margin-top: 5px"></div>
+    <div style="display:flex; justify-items: between">
+      <label class="submit-label submit-text">url</label>
+      <input class="submit-input" type="text" name="submit[URL]"></input>
+    </div>
+    <div style="display: flex; justify-content: start">
+      <div class="submit-label"></div>
+      <h4 class="submit-text" style="margin: 10px 0 10px 0; text-align: left;">or</h4>
+    </div>
+    <div style="display:flex; justify-items: between; align-items: center">
+      <label class="submit-label submit-text">text</label>
+      <textarea class="submit-input" style="display: flex" rows="4" cols="70" name="submit[text]"></textarea>
+    </div>
+    <div style="margin-top: 10px"></div>
+    <div style="display: flex; justify-content: start">
+      <div class="submit-label"></div>
+      <input style="display: flex; justify-self: start" type="submit" name="commit" value="submit" data-disable-with="submit">
+    </div>
+    <div style="margin-top: 10px"></div>
+    <div style="display: flex; justify-content: start">
+      <div class="submit-label"></div>
+      <p class="submit-text">Leave url blank to submit a question for discussion. If there is no url, the text (if any) will appear at the top of the thread.</p>
+    </div>
+    <div style="display: flex; justify-content: start">
+      <div class="submit-label"></div>
+      <p class="submit-text">You can also submit via <span><a href="https://news.ycombinator.com/bookmarklet.html">bookmarklet</a></span>.</p>
+    </div>
+  </form>
+</div>
+</center>

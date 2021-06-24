@@ -1,0 +1,33 @@
+// Place all the styles related to the submits controller here.
+
+
+ // They will automatically be included in application.css.
+ // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.submit-container {
+  padding-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: #F6F6EF; 
+  width: 85%;
+}
+
+.submit-label {
+  margin-left: 5px;
+  display: flex;
+  align-self: center;
+  width: 3em;
+}
+
+.submit-input {
+  display: flex;
+  align-self: center;
+  width: 50%;
+}
+
+.submit-text {
+  color: #828282;
+  font-size: 10pt;
+  text-align: left
+}

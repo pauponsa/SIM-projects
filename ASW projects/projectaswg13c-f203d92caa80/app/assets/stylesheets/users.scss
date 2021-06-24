@@ -1,0 +1,43 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.user-container {
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  background-color: #F6F6EF; 
+  width: 85%;
+}
+
+.user-label {
+  margin-left: 5px;
+  display: flex;
+  width: 4.5em;
+}
+
+.user-text {
+  display: flex;
+  color: #828282;
+  font-size: 10pt;
+  text-align: left;
+}
+
+.user-link {
+  display: flex;
+  color: black !important;
+  text-decoration: underline !important;
+  font-size: 10pt;
+}
+
+.user-input {
+  display: flex;
+  min-width: 30em;
+  align-self: start;
+}
+
+p {
+  margin-top: 0;
+}

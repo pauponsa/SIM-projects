@@ -1,0 +1,1 @@
+json.array! @submits, partial: "submits/newest", as: :submit

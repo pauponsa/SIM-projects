@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Liked Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Comentari</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @liked_comments.each do |liked_comment| %>
+      <tr>
+        <td><%= liked_comment.user_id %></td>
+        <td><%= liked_comment.comentari_id %></td>
+        <td><%= link_to 'Show', liked_comment %></td>
+        <td><%= link_to 'Edit', edit_liked_comment_path(liked_comment) %></td>
+        <td><%= link_to 'Destroy', liked_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Liked Comment', new_liked_comment_path %>

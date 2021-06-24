@@ -1,0 +1,37 @@
+<%= form_with(model: comentari) do |form| %>
+  <% if comentari.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comentari.errors.count, "error") %> prohibited this comentari from being saved:</h2>
+
+      <ul>
+        <% comentari.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_field :text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user %>
+    <%= form.text_field :user %>
+  </div>
+
+  <div class="field">
+    <%= form.label :postID %>
+    <%= form.text_field :postID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :respondsToId %>
+    <%= form.text_field :respondsToId %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

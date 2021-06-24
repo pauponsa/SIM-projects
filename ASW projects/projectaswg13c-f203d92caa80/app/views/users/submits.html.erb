@@ -1,0 +1,117 @@
+<center>
+<table id="hnmain" width="85%" cellspacing="0" cellpadding="0" border="0" bgcolor="#f6f6ef">
+  <tbody>
+    <tr>
+      <td bgcolor = "#ff6600"  class="tda">
+        <table style="padding:2px" width="100%" cellspacing="0" cellpadding="0" border="0">
+          <tbody >
+            <tr>
+               <td style="width:18px; padding-right:4px"  class="tda">
+                 <a href="https://www.youtube.com/watch?v=PwbqAJKNdXo">
+                   <img src="/y18.gif" style="border:1px white solid;"
+                   width = "18" height = "18" >
+                 </a>
+                </td>
+                <td style = "line-height:12pt; height:10px;"  class="tda">
+                  <span class="pagetop">
+                    <div style="display: inline-block;">
+                      <b class="hnname"><a href=<%=index_submit_path%>>Hacker News</a></b>
+                     <a  style="color: black"href=<%=newest_submit_path%>>new</a> | 
+                     </div>
+                     <% if session[:user_name]%>
+                      <a href="/comentaris">threads</a>
+                    <% else %>
+                      <div style="display: inline-block">
+                        <%= button_to "threads", '/auth/google_oauth2', form_class: "submit-button" %>
+                      </div>
+                    <% end%>
+                    <div style="display: inline-block;">
+                      | <a style="color: black">past</a> | <a style="color: black">comments</a> | <a style="color: black" href=<%=ask_submit_path%>>ask</a> | <a style="color: black">show</a> | <a style="color: black">jobs</a> |
+                     </div>
+                    <% if session[:user_name]%>
+                      <a href=<%= new_submit_path %>>submit</a>
+                    <% else %>
+                      <div style="display: inline-block">
+                        <%= button_to "submit", '/auth/google_oauth2', form_class: "submit-button" %>
+                      </div>
+                    <% end%>
+                    <div style="display: inline-block;">
+                      <div style="display: inline"> | </div>
+                      <p style="display: inline; color: white; margin: 0"><%= @user.name + '\'s submissions' %></p>
+                    </div>
+                  </span>
+                </td>
+                <td style="text-align:right;padding-right:4px;"  class="tda">
+                  <span class="pagetop">
+                    <% if session[:user_name]%>
+                  <a href=<%= "/users/" + session[:user_id].to_s %>> <%= session[:user_name] + " ("  + session[:user_karma].to_s + ")"%> </a>
+                  <p style="display: inline"> | </p>
+                  <a style="display: inline" href=<%= logout_path %>>logout</a>
+                    <% else %>
+                      <%= button_to "login", '/auth/google_oauth2', form_class: "login-button" %>
+                    <% end%>
+                  </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr id="pagespace" title="" style="height:10px"></tr>
+    <tr>
+      <td>
+         <table class="itemlist" cellspacing="0" cellpadding="0" border="0">
+          <tbody>
+    <% @count = 1%>
+    <% @submit.each do |submit| %>
+      <tr class="athing">
+        <td class="num" valign="top" align="right"><span class="rank"><%=@count%>.</span></td>
+        <td style="display: flex">
+        <div style="margin-right: 5px">
+        <% if session[:user_email]%>
+          <% if  submit.user_id == session[:user_id] %>
+            <center><div style="color: #ff6600">*</div></center>
+          <% elsif !@current_user_likes.exists?(submit_id: submit.id) %>
+            <center><a rel="nofollow" data-method="put" href=<%= "/submits/" + submit.id.to_s + "/upvote_update"%>><div class="votearrow" title="upvote"></div></a></center>
+          <% else %>
+            <a rel="nofollow" data-method="put" href=<%= "/submits/" + submit.id.to_s + "/upvote_update"%>><div class="votearrow" style="transform: rotate(180deg);" title="upvote"></div></a>
+          <% end %>
+        <% end %>
+        </div>
+        
+        <a class="storylink" href = "/submits/<%=submit.id%>"><%= submit.title %></a>
+         <%if submit.URL!=""%>
+          <a href=<%=submit.URL%> class="link">(<%=  submit.URL %>)</a></td>
+                        <%end%>
+      </tr>  
+      <tr> 
+         <td colspan="1"></td>
+         <td class="subtext">
+         <span class="subtext"> <%= submit.like %> likes</span> by <a class="subtext" href=<%= "/users/" + submit.user_id.to_s %>><%= User.find(submit.user_id).name %> | </a> <span class="subtext"><a><% time = (Time.now() - submit.created_at) %>
+
+                                <% if time < 3600 %>
+                                    <a ><%= (time/60).round %> minutes ago</a>  | 
+                                <% end %>
+
+                                <% if time >= 3600 && time < 3600*24 %>
+                                    <a ><%= (time/3600).round %> hours ago</a>  |
+                                <% end %>
+
+                                <% if time >= 3600*24 %>
+                                    <a><%= (time/(3600*24)).round %> days ago</a> |
+                                <% end %>
+                                </a></span> 
+         <span></span> <a>hide</a> | <a ><%= Comentari.where(postID: submit.id).count.to_s + " comments" %></a>
+          </td>
+      </tr>
+      </tr>
+      <%@count+=1%>
+    <% end %>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<br>
