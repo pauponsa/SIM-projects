@@ -1,0 +1,945 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Hacker News
+  description: "This is the Open API documentation for the REST API of our beloved application Hacker News deployed at <https://projectaswg13c.herokuapp.com/>. <br>All operations are executable. Some operations require authentication. In thoose cases, you must **Authorize** your request by providing the api_key vaule you got in your amazing profile."
+servers:
+  - url: 'https://projectaswg13c.herokuapp.com'
+  #- url: 'http://100.25.163.240:8080'
+  #- url: 'http://52.87.215.91:8080'
+  #- url: 'http://3.237.75.186:8080'
+  #- url: 'http://3.236.193.77:8080'
+  #- url: 'http://3.239.195.193:8080'
+tags:
+- name: "users"
+  description: "People that use our magnific web application"
+- name: "submissions"
+  description: "Gorgeous posts made by our beloved users, these submissions can be of type url or ask"
+- name: "comments"
+  description: "Incredibly smart comments made by our incredible users on their awesome submissions"
+schemes:
+- "https"
+- "http"
+paths:
+  /users/{userId}:
+    get:
+      tags:
+      - users
+      summary: Retrieves the user with the given id
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+          200:
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/comment'
+          404:
+            description: 'Error: Not Found'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResult'
+                examples:
+                  errorExample:
+                    $ref: '#/components/examples/error404'
+    put:
+      tags:
+      - users
+      summary: Edits the user with the given id
+      operationId: editUser
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                about:
+                  type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/UserUpdated'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      security:
+      - ApiKeyAuth: []
+  /submits:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves all the submits
+      operationId: getCnts
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+    post:
+      tags:
+      - submissions
+      summary: Creates a new submit
+      operationId: postSubmits
+      requestBody:
+        description: Provide the author & content of the new Tweet
+        content:
+          application/json:
+            schema:
+              required:
+              - title
+              - URL
+              - text
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 4
+                  example: 'My content'
+                URL:
+                   type: string
+                   example: 'https://atenea.upc.edu/login/index.php'
+                text:
+                  type: string
+                  example: 'pregunta?'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+        422:
+          description: 'Error: unprocessable entity'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error422'
+        409:
+          description: 'Error: Conflict'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error409'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+      security:
+      - ApiKeyAuth: []
+
+  /users/{userId}/submits:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves all the submissions made by the user
+      operationId: getUserSubmissions
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user to get submissions
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /users/{id}/upvoted_submissions:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves all the submissions upvoted by the user
+      operationId: getupvotedsubs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      security:
+      - ApiKeyAuth: []
+      
+  /users/{userId}/upvoted_comments:
+    get:
+      tags:
+      - comments
+      summary: Retrieves all the upvoted comments by the user
+      operationId: getUpvotedComments
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user to get upvoted comments
+        required: true
+        schema:
+          type: integer
+          format: int64
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+             schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/comment'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+    
+  /users/{userId}/comments:
+    get:
+      tags:
+      - comments
+      summary: Retrieves all the comments made by the user
+      operationId: getUserComments
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user to get comments
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /comentaris:
+    get:
+      tags:
+      - comments
+      summary: Retrieves all the comments made by the logged user
+      operationId: getComments
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - comments
+      summary: Puts a comment for the authorized user, respondsToId must be 0 if it's not an answer
+      operationId: putComment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                postID:
+                  type: integer
+                respondsToId:
+                  type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/CommentUpdated'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      security:
+      - ApiKeyAuth: []
+  /submit/newest:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves the list of newest submits
+      operationId: getNewest
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+  /submit/ask:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves all the submits type ask
+      operationId: getAsk
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+      
+  /submits/{submitId}:
+    get:
+      tags:
+      - submissions
+      summary: Retrieves the submit with id submitId and all the comments attached to it
+      operationId: getUserSubmits
+      parameters:
+      - name: submitId
+        in: path
+        description: ID of submit
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+                  $ref2: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  
+  /submits/{submitId}/vote:
+    put:
+      tags:
+      - submissions
+      summary: Upvote a submission
+      operationId: vote
+      parameters:
+      - name: submitId
+        in: path
+        description: ID of submit
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        405:
+          description: 'Error: Not Allowed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error405'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+      security:
+      - ApiKeyAuth: []
+  
+  /submits/{submitId}/unvote:
+    put:
+      tags:
+      - submissions
+      summary: Unvote a submission
+      operationId: unvote
+      parameters:
+      - name: submitId
+        in: path
+        description: ID of submit
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/submit'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        405:
+          description: 'Error: Not Allowed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error405'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+      security:
+      - ApiKeyAuth: []
+  
+  /comentaris/{commentId}/vote_comment:
+    put:
+      tags:
+      - comments
+      summary: Upvote a comment
+      operationId: vote_comment
+      parameters:
+      - name: commentId
+        in: path
+        description: ID of comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        405:
+          description: 'Error: Not Allowed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error405'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+      security:
+      - ApiKeyAuth: []
+      
+  /comentaris/{commentId}/unvote_comment:
+    put:
+      tags:
+      - comments
+      summary: Unvote a comment
+      operationId: unvote_comment
+      parameters:
+      - name: commentId
+        in: path
+        description: ID of comment
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/comment'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+        403:
+          description: 'Error: Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        405:
+          description: 'Error: Not Allowed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error405'
+        401:
+          description: 'Error: Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+      security:
+      - ApiKeyAuth: []
+                  
+components:
+  schemas:
+    comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+        text:
+          type: string
+          minLength: 1
+          example: 'Comentari de prova'
+        respondsToId:
+          type: integer
+          format: int32
+        postID:
+          type: integer
+          format: int32
+        likes:
+          type: integer
+          format: int32
+        created_at:
+          type: string
+          format: date-time
+        user_name:
+          type: string
+          minLength: 0
+        user_id:
+          type: integer
+          format: int64
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+        name:
+          type: string
+          minLength: 1
+          example: 'Nom'
+        about:
+          type: string
+          minLength: 0
+          example: 'About'
+        created_at:
+          type: string
+          minLength: 1
+          example: '2021-05-07T08:07:07.724Z'
+        karma:
+          type: integer
+          format: int64
+          example: 1
+    submit:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+        title:
+          type: string
+          minLength: 1
+          example: 'Title'
+        url:
+          type: string
+          minLength: 0
+          example: 'https://youtube.com'
+        text:
+          type: string
+          minLength: 0
+          example: 'Text'
+        created_at:
+          type: string
+          minLength: 1
+          example: '2021-05-07T08:07:07.724Z'
+        like:
+          type: integer
+          format: int64
+          example: 1
+        user_name:
+          type: string
+          minLength: 0
+          example: pau
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+        number_comments:
+          type: integer
+          format: int64
+          example: 1
+    UserUpdated:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [200]
+        message: 
+          type: string
+      example:
+        status: 200
+        message: "User updated successfully"
+    ErrorResult:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [400, 401, 403, 404, 409]
+        error: 
+          type: string
+          enum: ["Bad Request", "Unauthorized", "Forbidden", "Not Found", "Conflict"]
+        message: 
+          type: string
+    CommentUpdated:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum: [200]
+        commentId: 
+          type: integer
+        message: 
+          type: string
+      example:
+        status: 200
+        message: "Comment posted successfully"
+  examples:
+    error400:
+      value:
+        status: 400
+        error: "Bad Request"
+        message: "Content is too long (maximum is 280 characters)"
+    error401:
+      value:
+        status: 401
+        error: "Unauthorized"
+        message: "You provided no api key (X-API-KEY Header)"
+    error403:
+      value:
+        status: 403
+        error: "Forbidden"
+        message: "Your api key (X-API-KEY Header) is not valid"
+    error404:
+      value:
+        status: 404
+        error: "Not Found"
+        message: "No element with that ID"
+    error405:
+      value:
+        status: 405
+        error: "Not Allowed"
+        message: "You can't vote/unvote your own submit"
+    error409:
+      value:
+        status: 409
+        error: "Conflict"
+        message: "URL already exists"
+    error422:
+      value:
+        status: 422
+        error: "Unprocessable entity"
+        message: "You provided neither title nor url or text"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-Key #Custom headers in rails apps must have the X- prefix
+      in: header
