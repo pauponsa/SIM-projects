@@ -1,0 +1,22 @@
+Descripció:
+Aquest simulador simula els seguents objectes:
+		Peatge0
+Source -> Cua -> ...	-> Sink
+		PeatgeN
+	Operari0 ... OperariN
+
+La source crea les entitats (cotxes), que passen despres a la cua on s'esperen a que un peatge estigui disponible. Un cop poden
+passar, ho fan i el peatge demana un operari. Quan un operari està disponible, esposa a processar el cotxe en questio. Un cop
+acabat això, el cotxe passa a la sink i es destrueix.
+
+Compilació i Execució:
+Per compilar el programa cal situar-se amb el terminal de linux a la carpeta src i executar la comanda "make". Per executar
+el programa llavors caldrà fer servir la comanda "./main.exe"
+
+A l'inici de la simulació, el simulador demana a l'usuari les distribucions que han de fer servir la source i els peatges,
+aixi com el nombre d'aquests. També demana el nombre d'operaris. Un cop fet això, demana el temps maxim de simulacio, depres
+del qual pararà automàticament la simulació. En cas de que es seleccioni -1, el temps maxim serà infinit, i s'hauran d'anar
+introduint linies per consola, presionant la tecla enter. Si la linia es en blanc la simulació continuarà, i si conté únicament 
+la lletra s, pararà. Per últim, demana el temps entre la mostra dels esdeveniments. Aquest es el temps (ms reals, no de 
+simulació) que s'esperarà el programa entre cada esdeveniment. Un valor alt permetrà llegir bé els esdeveniments, i un valor 
+baix farà que acabi ràpid la simulació.
