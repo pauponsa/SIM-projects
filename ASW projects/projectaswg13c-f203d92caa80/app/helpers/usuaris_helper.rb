@@ -1,2 +1,0 @@
-module UsuarisHelper
-end
